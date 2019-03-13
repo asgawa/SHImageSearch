@@ -7,23 +7,32 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewImageResults"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="7dp"
+        android:background="@android:color/black"
+        android:scrollbars="vertical"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserInput"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:layout_editor_absoluteX="7dp"/>
+
     <EditText
+        tools:targetApi="P"
         android:id="@+id/editTextUserInput"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="@string/strUserInputHint"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
-
-    <ImageView
-        android:id="@+id/imageViewSearchResult"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/editTextUserInput"
-        app:srcCompat="@android:color/white" />
+        android:layout_margin="7dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="@string/strUserInputHint"
+        android:autofillHints="@string/strUserInputHint"
+        android:imeOptions="actionSearch"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewImageResults" tools:layout_editor_absoluteX="7dp"
+        android:inputType="text"/>
 
 </android.support.constraint.ConstraintLayout>
