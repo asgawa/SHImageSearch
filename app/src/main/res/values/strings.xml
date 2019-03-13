@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SHImageSearch</string>
+    <string name="strUserInputHint">Search image..</string>
+</resources>
