@@ -1,0 +1,14 @@
+package com.tistory.asgawa.shimagesearch.model
+
+import com.google.gson.annotations.SerializedName
+
+class SearchResponseMetaModel {
+    @SerializedName("total_count")
+    val total_count: Int = 0    //found count
+
+    @SerializedName("pageable_count")
+    val pageable_count: Int = 0 //count of total_count which can be shown
+
+    @SerializedName("is_end")
+    val is_end: Boolean = true  //this is the last page or not
+}

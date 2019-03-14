@@ -1,4 +1,4 @@
-package com.tistory.asgawa.shimagesearch;
+package com.tistory.asgawa.shimagesearch.util;
 
 import android.util.Log;
 
