@@ -16,30 +16,30 @@ import kotlinx.android.synthetic.main.search_image_item.view.*
 class RecyclerViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
     private val log = SHLog("RecyclerViewHolder")
     fun bindItems(data : String) {
-        //TODO #BL5 Begin Loading show
+        //TODO #TS5 Begin Loading show
         log.d("Image load start")
-        //#BL5 End
+        //#TS5 End
         Glide.with(itemView.context)
             .load(data)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .placeholder(android.R.drawable.ic_menu_report_image)   //#BL5 Loading
-            .error(android.R.drawable.stat_notify_error)    //#BL4 error
+            .placeholder(android.R.drawable.ic_menu_report_image)   //#TS5 Loading
+            .error(android.R.drawable.stat_notify_error)    //#TS4 error
             .priority(Priority.HIGH)
             .fitCenter()
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                    //#BL4 Begin load fail
+                    //#TS4 Begin load fail
                     e?.printStackTrace()
                     Glide.with(itemView.context)
                         .clear(itemView)
-                    //#BL4 End
+                    //#TS4 End
                     return false
                 }
 
                 override fun onResourceReady(resource: Drawable?, model: Any?,target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    //TODO #BL5 Begin Loading hide
+                    //TODO #TS5 Begin Loading hide
                     log.d("Image load end")
-                    //#BL5 End
+                    //#TS5 End
                     return false
                 }
             })

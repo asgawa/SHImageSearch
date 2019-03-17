@@ -19,16 +19,6 @@ import com.tistory.asgawa.shimagesearch.util.SHLog
 import com.tistory.asgawa.shimagesearch.view.RecyclerViewAdapter
 import com.tistory.asgawa.shimagesearch.viewmodel.SearchViewModel
 
-
-/**
- * # Business Logic
- * 1. Observe user input $editTextUserInput and search when it does not change for 1 second
- * 2. Search when it has triggered
- * 3. Search result will be shown in $recyclerViewImageResults
- * 4. If an error occurred or there are no result, show UI to user
- * 5. Progress UI is required for long time works
-*/
-
 class MainActivity : AppCompatActivity() {
 
     private val SEARCH_TRIGGER_TIMEOUT = 1000L
@@ -46,13 +36,13 @@ class MainActivity : AppCompatActivity() {
         val model = ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
         val searchTriggerRunnable = Runnable {
-            //#BL2 Begin
+            //#TS2 Begin
             log.d("Search start")
             model.onSearchTriggered(editTextUserInput.text.toString())
-            //#BL2 End
+            //#TS2 End
         }
 
-        //#BL1 Begin
+        //#TS1 Begin
         editTextUserInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(editable: Editable?) { }
             override fun beforeTextChanged(text: CharSequence?, start: Int, before: Int, after: Int) { }
@@ -74,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             hideInputMethod()
             false
         }
-        //#BL1 End
+        //#TS1 End
 
         linearLayoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         recyclerViewImageResults.layoutManager = linearLayoutManager
@@ -82,14 +72,14 @@ class MainActivity : AppCompatActivity() {
 
         model.getImageUrls().observe(this, Observer<ArrayList<String>> {
             if (it!!.isEmpty()) {
-                //#BL4 Begin no result
+                //#TS4 Begin no result
                 Snackbar.make(mainLayout, "검색 결과 없음", Snackbar.LENGTH_LONG).show()
-                //#BL4 End
+                //#TS4 End
             }
-            //#BL3 Begin
+            //#TS3 Begin
             val adapter = recyclerViewImageResults.adapter as RecyclerViewAdapter
             adapter.update(it)
-            //#BL3 End
+            //#TS3 End
         })
 
         editTextUserInput.requestFocus()
