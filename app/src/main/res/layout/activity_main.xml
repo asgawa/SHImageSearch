@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -31,7 +32,7 @@
         android:hint="@string/strUserInputHint"
         android:autofillHints="@string/strUserInputHint"
         android:imeOptions="actionSearch"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewImageResults" tools:layout_editor_absoluteX="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewImageResults"
         android:inputType="text"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.tistory.asgawa.shimagesearch.viewmodel
 
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.tistory.asgawa.shimagesearch.model.SearchApi
@@ -12,14 +13,19 @@ import io.reactivex.schedulers.Schedulers
 class SearchViewModel : ViewModel() {
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private lateinit var keyword: String
-    var imageUrls = MutableLiveData<ArrayList<String>>()
+    private val imageUrls = MutableLiveData<ArrayList<String>>()
+
+    fun getImageUrls(): LiveData<ArrayList<String>> {
+        return imageUrls
+    }
 
     fun onSearchTriggered(text: String) {
         keyword = text
         if (keyword.isNotBlank()) {
             search()
         } else {
-            //Notify it need to be cleared
+            imageUrls.value?.clear()
+            imageUrls.postValue(ArrayList())
         }
     }
 
@@ -30,11 +36,16 @@ class SearchViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
             .subscribe({ response: SearchResponseModel ->
-                val urls = ArrayList<String>()
-                for (item in response.documents) {
-                    urls.add(item.image_url)
+                if (response.meta.total_count > 0) {
+                    val imageUrls = ArrayList<String>()
+                    for (item in response.documents) {
+                        imageUrls.add(item.image_url)
+                    }
+                    this.imageUrls.value = imageUrls
+                } else {
+                    this.imageUrls.value?.clear()
+                    imageUrls.postValue(ArrayList())
                 }
-                imageUrls.value = urls
             }, { error: Throwable ->
                 print("error occurred ${error.localizedMessage}")
             })

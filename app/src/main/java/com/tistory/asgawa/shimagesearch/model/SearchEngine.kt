@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchEngine {
     companion object {
-        val SEARCH_KAKAO_API_URL = "https://dapi.kakao.com"
+        private const val SEARCH_KAKAO_API_URL = "https://dapi.kakao.com"
 
         private fun defaultRetrofit(): Retrofit {
             return Retrofit.Builder()
@@ -26,11 +26,11 @@ class SearchEngine {
 
         private fun createClient(): OkHttpClient {
             val interceptor = HttpLoggingInterceptor()
-//            if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 interceptor.level = HttpLoggingInterceptor.Level.BODY
-//            } else {
-//                interceptor.level = HttpLoggingInterceptor.Level.NONE
-//            }
+            } else {
+                interceptor.level = HttpLoggingInterceptor.Level.NONE
+            }
 
             return OkHttpClient.Builder()
                 .addNetworkInterceptor(interceptor)

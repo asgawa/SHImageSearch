@@ -11,8 +11,8 @@ import android.util.Log;
 public class SHLog {
     private String mTag = "SHLog";
 
-    private SHLog() {
-    }
+    @SuppressWarnings("UnusedDeclaration")
+    private SHLog() { } //disable
 
     public SHLog(String tag) {
         if ((tag != null) && (!tag.isEmpty())) {
@@ -20,6 +20,7 @@ public class SHLog {
         }
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     public void in() {
         StackTraceElement[] stack = new Throwable().getStackTrace();
         if (stack != null && stack.length > 1) {
@@ -27,6 +28,7 @@ public class SHLog {
         }
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     public void out() {
         StackTraceElement[] stack = new Throwable().getStackTrace();
         if (stack != null && stack.length > 1) {

@@ -1,12 +1,13 @@
 package com.tistory.asgawa.shimagesearch
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Handler
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
@@ -32,21 +33,24 @@ class MainActivity : AppCompatActivity() {
 
     private val SEARCH_TRIGGER_TIMEOUT = 1000L
 
-    private var log: SHLog = SHLog("MainActivity")
-    private val viewModel: SearchViewModel = SearchViewModel()
+    private val log: SHLog = SHLog("MainActivity")
     private lateinit var linearLayoutManager: LinearLayoutManager
     private val lastVisibleItemPosition: Int
         get() = linearLayoutManager.findLastVisibleItemPosition()
     private val searchTimeoutHandler: Handler = Handler()
-    private val searchTriggerRunnable = Runnable {
-        //#BL2 Begin
-        viewModel.onSearchTriggered(editTextUserInput.text.toString())
-        //#BL2 End
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val model = ViewModelProviders.of(this).get(SearchViewModel::class.java)
+
+        val searchTriggerRunnable = Runnable {
+            //#BL2 Begin
+            log.d("Search start")
+            model.onSearchTriggered(editTextUserInput.text.toString())
+            //#BL2 End
+        }
 
         //#BL1 Begin
         editTextUserInput.addTextChangedListener(object : TextWatcher {
@@ -76,10 +80,15 @@ class MainActivity : AppCompatActivity() {
         recyclerViewImageResults.layoutManager = linearLayoutManager
         recyclerViewImageResults.adapter = RecyclerViewAdapter(ArrayList())
 
-        viewModel.imageUrls.observe(this, Observer<ArrayList<String>> {
+        model.getImageUrls().observe(this, Observer<ArrayList<String>> {
+            if (it!!.isEmpty()) {
+                //#BL4 Begin no result
+                Snackbar.make(mainLayout, "검색 결과 없음", Snackbar.LENGTH_LONG).show()
+                //#BL4 End
+            }
             //#BL3 Begin
             val adapter = recyclerViewImageResults.adapter as RecyclerViewAdapter
-            adapter.update(it!!)
+            adapter.update(it)
             //#BL3 End
         })
 
@@ -95,6 +104,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel.onDestroy()
+        ViewModelProviders.of(this).get(SearchViewModel::class.java).onDestroy()
     }
 }

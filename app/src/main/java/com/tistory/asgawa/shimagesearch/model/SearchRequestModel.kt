@@ -7,7 +7,7 @@ class SearchRequestModel {
     var query: String = ""  //mandatory
 
     @SerializedName("sort")
-    var sort: String = "recency"    //sort by accuracy or recency
+    var sort: String = "accuracy"    //sort by accuracy or recency
 
     @SerializedName("page")
     var page: Int = 1   //result page number, default: 1

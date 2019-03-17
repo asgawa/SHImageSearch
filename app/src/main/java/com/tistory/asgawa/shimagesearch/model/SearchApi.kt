@@ -7,7 +7,6 @@ import retrofit2.http.Query
 
 class SearchApi {
     interface SearchApiImpl {
-//        @Headers("Authorization: KakaoAK 33deaa7a6c79fdd190b694d4c1a0293b")
         @Headers("Authorization: KakaoAK 56246375a4bd58d9c2e6052811be824c")
         @GET("v2/search/image")
         fun searchImage(@Query("query") query: String,
