@@ -28,17 +28,15 @@ class RecyclerViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClic
             .load(data)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 //            .placeholder(android.R.drawable.ic_menu_report_image)
-            .placeholder(circularProgressDrawable)  //#TS5 Loading
-            .error(android.R.drawable.stat_notify_error)    //#TS4 error
+            .placeholder(circularProgressDrawable)
+            .error(android.R.drawable.stat_notify_error)
             .priority(Priority.HIGH)
             .fitCenter()
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                    //#TS4 Begin load fail
                     e?.printStackTrace()
                     Glide.with(itemView.context)
                         .clear(itemView)
-                    //#TS4 End
                     log.d("Image load end")
                     return false
                 }

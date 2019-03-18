@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SHImageSearch</string>
     <string name="strUserInputHint">Search image..</string>
+    <string name="strNoResult">검색 결과 없음</string>
 </resources>

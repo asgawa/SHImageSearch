@@ -32,13 +32,10 @@ class MainActivity : AppCompatActivity() {
         val model = ViewModelProviders.of(this).get(SearchViewModel::class.java)
 
         val searchTriggerRunnable = Runnable {
-            //#TS2 Begin
             log.d("Search start")
             model.onSearchTriggered(editTextUserInput.text.toString())
-            //#TS2 End
         }
 
-        //#TS1 Begin
         editTextUserInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(editable: Editable?) { }
             override fun beforeTextChanged(text: CharSequence?, start: Int, before: Int, after: Int) { }
@@ -60,7 +57,6 @@ class MainActivity : AppCompatActivity() {
             hideInputMethod()
             false
         }
-        //#TS1 End
 
         recyclerViewImageResults.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         val adapter = RecyclerViewAdapter(ArrayList())
@@ -69,15 +65,8 @@ class MainActivity : AppCompatActivity() {
             if (it == null) {
                 adapter.update(ArrayList()) //pass empty array list
             } else {
-                if (it.isEmpty()) {
-                    //#TS4 Begin no result
-                    Snackbar.make(mainLayout, "검색 결과 없음", Snackbar.LENGTH_LONG).show()
-                    //#TS4 End
-                }
-
-                //#TS3 Begin
+                if (it.isEmpty()) Snackbar.make(mainLayout, resources.getText(R.string.strNoResult), Snackbar.LENGTH_LONG).show()
                 adapter.update(it)
-                //#TS3 End
             }
         })
 
