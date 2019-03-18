@@ -15,4 +15,4 @@ External API: Kakao Developers (https://developers.kakao.com)
 4. If an error occurred or there are no result, show UI to user
 5. Progress UI is required for long time works
 
-9. Orientation
+9. Orientation (Optional)
