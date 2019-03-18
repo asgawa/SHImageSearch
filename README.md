@@ -1,6 +1,6 @@
 # SHImageSearch
 Search image with REST API with typed text and
-show received image URLS via RecyclerView
+show received image URLs via RecyclerView
 
 **Environment**  
 OS: Android  
