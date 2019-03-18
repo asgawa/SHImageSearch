@@ -63,18 +63,22 @@ class MainActivity : AppCompatActivity() {
         //#TS1 End
 
         recyclerViewImageResults.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        recyclerViewImageResults.adapter = RecyclerViewAdapter(ArrayList())
-
+        val adapter = RecyclerViewAdapter(ArrayList())
+        recyclerViewImageResults.adapter = adapter
         model.getImageUrls().observe(this, Observer<ArrayList<String>> {
-            if (it!!.isEmpty()) {
-                //#TS4 Begin no result
-                Snackbar.make(mainLayout, "검색 결과 없음", Snackbar.LENGTH_LONG).show()
-                //#TS4 End
+            if (it == null) {
+                adapter.update(ArrayList()) //pass empty array list
+            } else {
+                if (it.isEmpty()) {
+                    //#TS4 Begin no result
+                    Snackbar.make(mainLayout, "검색 결과 없음", Snackbar.LENGTH_LONG).show()
+                    //#TS4 End
+                }
+
+                //#TS3 Begin
+                adapter.update(it)
+                //#TS3 End
             }
-            //#TS3 Begin
-            val adapter = recyclerViewImageResults.adapter as RecyclerViewAdapter
-            adapter.update(it)
-            //#TS3 End
         })
 
         editTextUserInput.requestFocus()
@@ -87,8 +91,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        ViewModelProviders.of(this).get(SearchViewModel::class.java).onDestroy()
-    }
+    //This code should be enabled if orientation is fixed, see SearchViewModel.onDestroy()
+//    override fun onDestroy() {
+//        ViewModelProviders.of(this).get(SearchViewModel::class.java).onDestroy()
+//        super.onDestroy()
+//    }
 }

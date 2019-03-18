@@ -14,5 +14,4 @@ External API: Kakao Developers (https://developers.kakao.com)
 3. Search result will be shown in $recyclerViewImageResults
 4. If an error occurred or there are no result, show UI to user
 5. Progress UI is required for long time works
-
-9. Orientation (Optional)
+6. Orientation (Optional)

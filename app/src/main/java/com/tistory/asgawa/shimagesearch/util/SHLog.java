@@ -9,14 +9,14 @@ import android.util.Log;
  */
 
 public class SHLog {
-    private String mTag = "SHLog";
+    private String tag = "SHLog";
 
     @SuppressWarnings("UnusedDeclaration")
     private SHLog() { } //disable
 
     public SHLog(String tag) {
         if ((tag != null) && (!tag.isEmpty())) {
-            mTag = tag;
+            this.tag = tag;
         }
     }
 
@@ -38,49 +38,36 @@ public class SHLog {
 
     public void v(String msg, Object ... args) {
         if (msg != null && msg.length() > 0) {
-            String str = null;
-            str = String.format(msg, args);
-            Log.v(mTag, str);
+            String str = String.format(msg, args);
+            Log.v(tag, str);
         }
     }
 
     public void d(String msg, Object ... args) {
         if (msg != null && msg.length() > 0) {
-            String str = null;
-            str = String.format(msg, args);
-            Log.d(mTag, str);
+            String str = String.format(msg, args);
+            Log.d(tag, str);
         }
     }
 
     public void i(String msg, Object ... args) {
         if (msg != null && msg.length() > 0) {
-            String str = null;
-            str = String.format(msg, args);
-            Log.i(mTag, str);
+            String str = String.format(msg, args);
+            Log.i(tag, str);
         }
     }
 
     public void w(String msg, Object ... args) {
         if (msg != null && msg.length() > 0) {
-            String str = null;
-            str = String.format(msg, args);
-            Log.w(mTag, str);
+            String str = String.format(msg, args);
+            Log.w(tag, str);
         }
     }
 
     public void e(String msg, Object ... args) {
         if (msg != null && msg.length() > 0) {
-            String str = null;
-            str = String.format(msg, args);
-            Log.e(mTag, str);
-        }
-    }
-
-    public void a(String msg, Object ... args) {
-        if (msg != null && msg.length() > 0) {
-            String str = null;
-            str = String.format(msg, args);
-            Log.wtf(mTag, str);
+            String str = String.format(msg, args);
+            Log.e(tag, str);
         }
     }
 }

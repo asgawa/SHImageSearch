@@ -1,6 +1,7 @@
 package com.tistory.asgawa.shimagesearch.view
 
 import android.graphics.drawable.Drawable
+import android.support.v4.widget.CircularProgressDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.bumptech.glide.Glide
@@ -15,14 +16,19 @@ import kotlinx.android.synthetic.main.search_image_item.view.*
 
 class RecyclerViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
     private val log = SHLog("RecyclerViewHolder")
-    fun bindItems(data : String) {
-        //TODO #TS5 Begin Loading show
+    fun bindItem(data : String) {
         log.d("Image load start")
-        //#TS5 End
+
+        val circularProgressDrawable = CircularProgressDrawable(itemView.context)
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
+
         Glide.with(itemView.context)
             .load(data)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .placeholder(android.R.drawable.ic_menu_report_image)   //#TS5 Loading
+//            .placeholder(android.R.drawable.ic_menu_report_image)
+            .placeholder(circularProgressDrawable)  //#TS5 Loading
             .error(android.R.drawable.stat_notify_error)    //#TS4 error
             .priority(Priority.HIGH)
             .fitCenter()
@@ -33,17 +39,16 @@ class RecyclerViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClic
                     Glide.with(itemView.context)
                         .clear(itemView)
                     //#TS4 End
+                    log.d("Image load end")
                     return false
                 }
 
                 override fun onResourceReady(resource: Drawable?, model: Any?,target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                    //TODO #TS5 Begin Loading hide
                     log.d("Image load end")
-                    //#TS5 End
                     return false
                 }
             })
-            .dontAnimate()
+            .dontAnimate()  //Comment this line to support animated gif
             .into(itemView.imageViewRemoteImage)
     }
 

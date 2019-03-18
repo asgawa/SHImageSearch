@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class SearchViewModel : ViewModel() {
-    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
     private lateinit var keyword: String
     private val imageUrls = MutableLiveData<ArrayList<String>>()
 
@@ -23,9 +23,9 @@ class SearchViewModel : ViewModel() {
         keyword = text
         if (keyword.isNotBlank()) {
             search()
-        } else {
+        } else {    //keyword is empty, no need to notify to user 'there is no search result'
             imageUrls.value?.clear()
-            imageUrls.postValue(ArrayList())
+            imageUrls.postValue(null)
         }
     }
 
@@ -42,7 +42,7 @@ class SearchViewModel : ViewModel() {
                         imageUrls.add(item.image_url)
                     }
                     this.imageUrls.value = imageUrls
-                } else {
+                } else {    //no search result
                     this.imageUrls.value?.clear()
                     imageUrls.postValue(ArrayList())
                 }
@@ -52,7 +52,8 @@ class SearchViewModel : ViewModel() {
         )
     }
 
-    fun onDestroy() {
-        compositeDisposable.dispose()
-    }
+    //This code should be enabled if orientation is fixed
+//    fun onDestroy() {
+//        compositeDisposable.dispose()
+//    }
 }

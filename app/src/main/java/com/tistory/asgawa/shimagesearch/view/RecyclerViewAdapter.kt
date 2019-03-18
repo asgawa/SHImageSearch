@@ -15,16 +15,17 @@ class RecyclerViewAdapter(private var imageUrls:ArrayList<String>): RecyclerView
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        holder.bindItems(imageUrls[position])
+        holder.bindItem(imageUrls[position])
     }
 
     fun update(imageUrls: ArrayList<String>) {
-        if (imageUrls.size == 0) {
+        notifyItemRangeRemoved(0, this.imageUrls.size)
+        if (imageUrls.isEmpty()) {
             this.imageUrls.clear()
-            notifyDataSetChanged()
+            notifyDataSetChanged()  //refresh whole recycler view
         } else {
             this.imageUrls = imageUrls
-            notifyItemRangeChanged(0, this.imageUrls.size)
+            notifyItemRangeInserted(0, this.imageUrls.size)
         }
     }
 }

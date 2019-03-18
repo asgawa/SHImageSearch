@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 class SearchResponseModel {
     @SerializedName("meta")
-    val meta: SearchResponseMetaModel = SearchResponseMetaModel()
+    var meta: SearchResponseMetaModel = SearchResponseMetaModel()
 
     @SerializedName("documents")
-    val documents  = ArrayList<SearchResponseDocumentModel>()
+    var documents  = ArrayList<SearchResponseDocumentModel>()
 }
