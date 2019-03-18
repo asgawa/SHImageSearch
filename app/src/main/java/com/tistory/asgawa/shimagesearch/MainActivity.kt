@@ -22,11 +22,7 @@ import com.tistory.asgawa.shimagesearch.viewmodel.SearchViewModel
 class MainActivity : AppCompatActivity() {
 
     private val SEARCH_TRIGGER_TIMEOUT = 1000L
-
     private val log: SHLog = SHLog("MainActivity")
-    private lateinit var linearLayoutManager: LinearLayoutManager
-    private val lastVisibleItemPosition: Int
-        get() = linearLayoutManager.findLastVisibleItemPosition()
     private val searchTimeoutHandler: Handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,8 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
         //#TS1 End
 
-        linearLayoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        recyclerViewImageResults.layoutManager = linearLayoutManager
+        recyclerViewImageResults.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         recyclerViewImageResults.adapter = RecyclerViewAdapter(ArrayList())
 
         model.getImageUrls().observe(this, Observer<ArrayList<String>> {
