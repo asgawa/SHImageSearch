@@ -3,13 +3,14 @@ package com.tistory.asgawa.shimagesearch.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.tistory.asgawa.shimagesearch.model.SearchApi
+import com.tistory.asgawa.shimagesearch.util.SearchApi
 import com.tistory.asgawa.shimagesearch.model.SearchRequestModel
 import com.tistory.asgawa.shimagesearch.model.SearchResponseModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
+//important: do not save UI context to avoid memory leak
 class SearchViewModel : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     private lateinit var keyword: String
@@ -32,7 +33,8 @@ class SearchViewModel : ViewModel() {
     private fun search() {
         val requestModel = SearchRequestModel()
         requestModel.query = keyword
-        compositeDisposable.add(SearchApi.searchImage(requestModel)
+        compositeDisposable.add(
+            SearchApi.searchImage(requestModel)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
             .subscribe({ response: SearchResponseModel ->
@@ -52,8 +54,8 @@ class SearchViewModel : ViewModel() {
         )
     }
 
-    //This code should be enabled if orientation is fixed
-//    fun onDestroy() {
-//        compositeDisposable.dispose()
-//    }
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
+    }
 }

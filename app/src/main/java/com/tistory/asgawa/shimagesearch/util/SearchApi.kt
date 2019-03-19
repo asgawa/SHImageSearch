@@ -1,5 +1,7 @@
-package com.tistory.asgawa.shimagesearch.model
+package com.tistory.asgawa.shimagesearch.util
 
+import com.tistory.asgawa.shimagesearch.model.SearchRequestModel
+import com.tistory.asgawa.shimagesearch.model.SearchResponseModel
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -22,7 +24,12 @@ class SearchApi {
         }
 
         fun searchImage(requestModel: SearchRequestModel) : Observable<SearchResponseModel> {
-            return searchImage(requestModel.query, requestModel.sort, requestModel.page, requestModel.size)
+            return searchImage(
+                requestModel.query,
+                requestModel.sort,
+                requestModel.page,
+                requestModel.size
+            )
         }
     }
 }

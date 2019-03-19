@@ -1,4 +1,4 @@
-package com.tistory.asgawa.shimagesearch.model
+package com.tistory.asgawa.shimagesearch.util
 
 import com.tistory.asgawa.shimagesearch.BuildConfig
 import okhttp3.OkHttpClient

@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
                 searchTimeoutHandler.postDelayed(searchTriggerRunnable, SEARCH_TRIGGER_TIMEOUT)
             }
         })
+
+        //Hide keyboard Begin
         editTextUserInput.setOnEditorActionListener { _, actionId, _ ->
             when(actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
@@ -57,13 +59,14 @@ class MainActivity : AppCompatActivity() {
             hideInputMethod()
             false
         }
+        //Hide keyboard End
 
         recyclerViewImageResults.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         val adapter = RecyclerViewAdapter(ArrayList())
         recyclerViewImageResults.adapter = adapter
         model.getImageUrls().observe(this, Observer<ArrayList<String>> {
             if (it == null) {
-                adapter.update(ArrayList()) //pass empty array list
+                adapter.update(ArrayList()) //pass empty array list to clear recyclerview
             } else {
                 if (it.isEmpty()) Snackbar.make(mainLayout, resources.getText(R.string.strNoResult), Snackbar.LENGTH_LONG).show()
                 adapter.update(it)
@@ -79,10 +82,4 @@ class MainActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
     }
-
-    //This code should be enabled if orientation is fixed, see SearchViewModel.onDestroy()
-//    override fun onDestroy() {
-//        ViewModelProviders.of(this).get(SearchViewModel::class.java).onDestroy()
-//        super.onDestroy()
-//    }
 }
