@@ -18,7 +18,8 @@ https://developers.kakao.com/docs/restapi/search#%EC%9D%B4%EB%AF%B8%EC%A7%80-%EA
 4. If an error occurred or there are no result, show UI to user  
 5. Progress UI is required for loading  
 6. Set image view size against device width and keep the aspect ratio of images  
-7. Orientation (Optional)  
+7. Paging
+8. Orientation (Optional)  
 
 **Restrictions**
 1. Java  
