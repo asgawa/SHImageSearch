@@ -13,5 +13,5 @@ class SearchRequestModel {
     var page: Int = 1   //result page number, default: 1
 
     @SerializedName("size")
-    var size: Int = 80   //count in one page, default: 80
+    var size: Int = 20   //count in one page, default: 80
 }

@@ -28,4 +28,12 @@ class RecyclerViewAdapter(private var imageUrls:ArrayList<String>): RecyclerView
             notifyItemRangeInserted(0, this.imageUrls.size)
         }
     }
+
+    fun append(imageUrls: ArrayList<String>) {
+        if (!imageUrls.isEmpty()) {
+            val currentSize = this.imageUrls.size
+            this.imageUrls.addAll(imageUrls)
+            notifyItemInserted(currentSize)
+        }
+    }
 }
